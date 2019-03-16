@@ -1,10 +1,10 @@
 import random
-from tkinter import * #pylint: disable=W0614
+from tkinter import * # pylint: disable=W0614
 import pyperclip
 import os
 from gui import guiInit
-#pylint: disable=W0612
-#pylint: disable=E1103
+# pylint: disable=W0612
+# pylint: disable=E1103
 
 class PasswordGenerator():
 
@@ -67,7 +67,7 @@ class PasswordGenerator():
 root = Tk()
 root.title("Password Generator")
 try:
-    root.iconbitmap(os.path.abspath(os.path.dirname(__file__)) + "/passwordGeneratorIcon.ico")
+    root.iconbitmap(os.path.abspath(os.path.dirname(__file__)) + "/PasswordGenerator.ico")
 except:
     print("failed to load the windows icon")
 program = PasswordGenerator(root)
