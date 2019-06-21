@@ -34,11 +34,11 @@ def guiInit(self, root):
     self.includeLowercaseCheck.pack(fill=X)
 
     self.includeUppercaseVar = IntVar(value=1)
-    self.includeUppercaseCheck = ttk.Checkbutton(self.passwordOptionsFrame, text="Inlcude upper case letters", variable=self.includeUppercaseVar)
+    self.includeUppercaseCheck = ttk.Checkbutton(self.passwordOptionsFrame, text="Include upper case letters", variable=self.includeUppercaseVar)
     self.includeUppercaseCheck.pack(fill=X)
 
     self.includeSpecialVar = IntVar(value=1)
-    self.includeSpecialCheck = ttk.Checkbutton(self.passwordOptionsFrame, text="Inlcude special characters", variable=self.includeSpecialVar)
+    self.includeSpecialCheck = ttk.Checkbutton(self.passwordOptionsFrame, text="Include special characters", variable=self.includeSpecialVar)
     self.includeSpecialCheck.pack(fill=X)
 
 
