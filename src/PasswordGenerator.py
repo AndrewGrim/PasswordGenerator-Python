@@ -1,10 +1,15 @@
 import random
 from tkinter import * # pylint: disable=W0614
-import pyperclip
 import os
+import platform
+
 from gui import guiInit
 # pylint: disable=W0612
 # pylint: disable=E1103
+
+systemOS = platform.platform().lower()
+firstDash = systemOS.find("-")
+systemOS = systemOS[:firstDash]
 
 class PasswordGenerator():
 
@@ -14,9 +19,6 @@ class PasswordGenerator():
         
 
     def generatePassword(self):
-        # generates the password from the lists below of your choosing and according to the length set
-        # outputs the password into the entry box by the generate button as well as printing it to the terminal
-
         numbersList = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         lowercaseList = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
         uppercaseList = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -33,8 +35,6 @@ class PasswordGenerator():
             lists.append(specialList)
 
         length = self.passwordLengthVar.get()
-        
-
         password = ""
         
         if len(lists) == 0:
@@ -42,18 +42,13 @@ class PasswordGenerator():
         else:
             for i in range(length): 
                 category = random.choice(lists)
-                #print(category)
                 password += random.choice(category)
-                #print(password)
 
             print("this is the generated password: " + str(password))
             print(len(password))
             self.generatePasswordVar.set(value=password)
-
-            # copies the generated password to the clipboard so you can just paste it without copying it first
-            pyperclip.copy(password)
-
-            # displays the below message in the title bar for 2 seconds
+            root.clipboard_clear()
+            root.clipboard_append(password)
             root.title("Password copied to clipboard!")
             
             def changeTitle():
@@ -63,12 +58,18 @@ class PasswordGenerator():
             root.after(2000, changeTitle)
 
 
-
 root = Tk()
 root.title("Password Generator")
-try:
-    root.iconbitmap(os.path.abspath(os.path.dirname(__file__)) + "/PasswordGenerator.ico")
-except:
-    print("failed to load the windows icon")
+if systemOS == "windows":
+    try:
+        root.iconbitmap(os.getcwd() + "/images/PasswordGenerator.ico")
+    except:
+        print("windows icon not found in the local directory!")
+elif systemOS == "linux":
+    try:
+        icon = PhotoImage(file="/images/PasswordGenerator.png")
+        root.tk.call("wm", "iconphoto", root._w, icon)
+    except:
+        print("linux icon not found in the local directory!")
 program = PasswordGenerator(root)
 root.mainloop()
